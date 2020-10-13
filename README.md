@@ -26,8 +26,6 @@ library(BayesFactor)
 
 ```
 
-
-
 ```{r}
 ########################################
 #GET RAW BEHAVIORAL DATA FROM CSV FILES 
@@ -35,11 +33,12 @@ library(BayesFactor)
 
 setwd("C:/Users/18829.DESKTOP-PG2BS5Q/Desktop/MT/Data/data/data/")
 PP <- c(1:62)
+# original data 62 trails
 
 # Read 1st PP
-
 data = read_excel("1_insight_PsychoPhysics.xlsx")
 
+#rename
 data<- data %>% 
   transmute(
     subject = participant,
@@ -60,9 +59,7 @@ data<- data %>%
 # Read remaining PPs
 
 for (i in PP[-1]){
-  
   datastr <- paste("C:/Users/18829.DESKTOP-PG2BS5Q/Desktop/MT/Data/data/data/",i,   "_insight_PsychoPhysics.xlsx", sep = "")
-  
   data_n = read_excel(datastr)
   
   data_n<- data_n %>% 
@@ -87,6 +84,7 @@ for (i in PP[-1]){
 ```
 
 ```{r}
+# define factors
 data$trial_counter <- as.integer(factor(data$trial_counter,levels=unique(data$trial_counter))) 
 data$subject <- as.character(as.factor(data$subject))
 
